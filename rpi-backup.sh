@@ -6,11 +6,14 @@ sudo apt-get -y install rsync dosfstools parted kpartx exfat-fuse
 #mount USB device
 usbmount=/mnt
 mkdir -p $usbmount
+df -P
 if [ -z $1 ]; then
-	echo "no argument, assume the mount device is /dev/sda1 ? Y/N"
+	echo "(1):Back up system to /dev/sda1 \n (2):Back up system to /dev/sda2 "
 	read key
-	if [ "$key" = "y" -o "$key" = "Y" ]; then
+	if [ "$key" = "1"]; then
 		sudo mount -o uid=1000 /dev/sda1 $usbmount
+	if [ "$key" = "2"]; then
+		sudo mount -o uid=1000 /dev/sda2 $usbmount
 	else
 		echo "$0 [backup dest device name], e.g. $0 /dev/sda1"
 		exit 0
