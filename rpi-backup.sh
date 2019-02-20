@@ -1,7 +1,8 @@
 #!/bin/sh
 
-#install tools
+echo ================== part 0, install tools ============================
 sudo apt-get -y install rsync dosfstools parted kpartx exfat-fuse
+echo "finshed install tools"
 
 #mount USB device
 usbmount=/mnt
@@ -30,7 +31,7 @@ img=$usbmount/rpi-`date +%Y%m%d-%H%M`.img
 #img=$usbmount/rpi.img
 
 
-echo ===================== part 1, create a new blank img ===============================
+echo =================== part 1, create a new blank img ===================
 # New img file
 #sudo rm $img
 bootsz=`df -P | grep /boot | awk '{print $2}'`
@@ -54,7 +55,7 @@ sudo mkfs.vfat ${device}p1 -n boot
 sudo mkfs.ext4 ${device}p2
 
 
-echo ===================== part 2, fill the data to img =========================
+echo ================ part 2, fill the data to img ====================
 # mount partitions
 mountb=$usbmount/backup_boot/
 mountr=$usbmount/backup_root/
